@@ -43,7 +43,7 @@ def process_and_save_augmented_images(image_path, num_augmented_per_image=5):
         save_augmented_image(augmented_image, augmented_image_path)
 
 if __name__ == '__main__':
-    BASE_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/high_res_data"
+    BASE_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/high_res_data"
     
     image_paths = [os.path.join(BASE_DIRECTORY, image_name) for image_name in os.listdir(BASE_DIRECTORY) if image_name.endswith(('.png', '.jpg', '.jpeg'))]
 

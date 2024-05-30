@@ -35,7 +35,7 @@ def rename_images_in_directory(directory):
 
 if __name__ == "__main__":
     # Define the directory containing the images
-    directory = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/high_res_data"
+    directory = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/high_res_data"
     
     # Rename the images in the specified directory
     rename_images_in_directory(directory)

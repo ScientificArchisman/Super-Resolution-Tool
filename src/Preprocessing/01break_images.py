@@ -59,8 +59,8 @@ def process_image(image_path, saving_directory):
         print(f"Skipping {image_name} due to error: {e}")
 
 if __name__ == '__main__':
-    BASE_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/original_data"
-    SAVING_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/high_res_data"
+    BASE_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/original_data"
+    SAVING_DIRECTORY = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/high_res_data"
     os.makedirs(SAVING_DIRECTORY, exist_ok=True)
 
     image_paths = [os.path.join(BASE_DIRECTORY, image_name) for image_name in os.listdir(BASE_DIRECTORY) if image_name.endswith(('.png', '.jpg', '.jpeg'))]

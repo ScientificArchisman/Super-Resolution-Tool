@@ -55,8 +55,8 @@ def process_images(source_directory, target_directory, downsample_factor):
 
 if __name__ == "__main__":
     # Define the source and target directories
-    source_directory = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/high_res_data"
-    target_directory = "/Users/archismanchakraborti/Desktop/python_files/GAN_TEST/data/low_res_data"
+    source_directory = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/high_res_data"
+    target_directory = "/Users/archismanchakraborti/Desktop/python_files/Super-Resolution-Tool/data/low_res_data"
     
     # Create the target directory if it does not exist
     os.makedirs(target_directory, exist_ok=True)
