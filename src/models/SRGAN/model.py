@@ -1,4 +1,4 @@
-from blocks import Generator_Residual_Block, DisCriminator_Residual_Block, Generator_Upsample_Block
+from blocks import Generator_Residual_Block, Discriminator_Residual_Block, Generator_Upsample_Block
 import torch.nn as nn
 
 
@@ -38,8 +38,15 @@ class Generator(nn.Module):
                                kernel_size = 9, stride = 1, padding = 4)
         
     def forward(self, x):
-        residual = x
+        out = self.conv1(x)
+        out = self.activation1(out)
+        residual = out # Save residual for later
 
+        out = self.res_blocks(out)
+        out = self.conv2(out)
+        out = self.bn2(out)
+        out += residual
 
-
-        return 
+        out = self.upsample_blocks(out)
+        out = self.conv3(out)
+        return out

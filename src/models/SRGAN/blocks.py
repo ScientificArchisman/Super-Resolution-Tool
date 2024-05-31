@@ -26,7 +26,7 @@ class Generator_Residual_Block(nn.Module):
         return out
     
 
-class DisCriminator_Residual_Block(nn.Module):
+class Discriminator_Residual_Block(nn.Module):
     """ Discriminator Residual Block
     Conv -> BN -> LeakyReLU"""
     def __init__(self, input_channels, output_channels,
