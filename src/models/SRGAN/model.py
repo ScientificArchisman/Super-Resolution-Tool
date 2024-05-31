@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class Generator(nn.Module):
     """Generator network for SRGAN"""
-    def __init__(self, in_channels, num_upsample_blocks, num_residual_blocks):
+    def __init__(self, in_channels, out_channels,  num_upsample_blocks, num_residual_blocks):
         super(Generator, self).__init__()
 
         ################# Part 1 of Network ###############
@@ -34,7 +34,7 @@ class Generator(nn.Module):
 
 
         ################# Output Layer ###############
-        self.conv3 = nn.Conv2d(in_channels = 64, out_channels = 3, 
+        self.conv3 = nn.Conv2d(in_channels = 64, out_channels = out_channels, 
                                kernel_size = 9, stride = 1, padding = 4)
         
     def forward(self, x):
@@ -82,7 +82,7 @@ class Discriminator(nn.Module):
         self.downsample_layer = nn.Sequential(*self.downsample_blocks)
         
         ################# Part 3 of Network ###############
-        self.linear1 = nn.Linear(512*16*16, 1024)
+        self.linear1 = nn.Linear(1, 1024)
         self.activation2 = nn.LeakyReLU(0.2)
         self.linear2 = nn.Linear(1024, 1)
         self.sigmoid = nn.Sigmoid()
@@ -92,6 +92,11 @@ class Discriminator(nn.Module):
         out = self.activation1(out)
         out = self.downsample_layer(out)
         out = out.view(out.size(0), -1)
+
+        # Dynamically calculate the input size for the linear layer
+        if self.linear1.in_features != out.size(1):
+            self.linear1 = nn.Linear(out.size(1), 1024).to(out.device)
+
         out = self.linear1(out)
         out = self.activation2(out)
         out = self.linear2(out)
