@@ -1,14 +1,16 @@
-from torchvision.models import vgg19
+from torchvision.models import vgg19, VGG19_Weights
 import torch.nn as nn
 import torch
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 class VGGLoss(nn.Module):
-    def __init__(self):
+    def __init__(self, device):
         super(VGGLoss, self).__init__()
-        self.vgg = vgg19(pretrained=True).features[:36].to(device).eval()
+        self.vgg = vgg19(weights=VGG19_Weights.IMAGENET1K_V1).features[:36].to(device).eval()
         self.loss = nn.MSELoss()
+        for param in self.vgg.parameters():
+            param.requires_grad = False
 
     def forward(self, sr, hr):
         sr = self.vgg(sr)
