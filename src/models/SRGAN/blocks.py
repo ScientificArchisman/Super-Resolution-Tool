@@ -52,7 +52,7 @@ class Generator_Upsample_Block(nn.Module):
     def __init__(self, input_channels, output_channels, 
                  kernel_size, stride, padding, upsample_factor = 2):
         super(Generator_Upsample_Block, self).__init__()
-        self.conv = nn.Conv2d(input_channels, output_channels, 
+        self.conv = nn.Conv2d(input_channels, output_channels * (upsample_factor ** 2), 
                           kernel_size, stride, padding)
         self.pixel_shuffle = nn.PixelShuffle(upsample_factor)
         self.activation = nn.PReLU(output_channels)

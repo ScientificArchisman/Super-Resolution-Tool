@@ -28,13 +28,13 @@ class Generator(nn.Module):
         # Upsampling network
         upsample_blocks = []
         for _ in range(num_upsample_blocks):
-            upsample_blocks.append(Generator_Upsample_Block(input_channels=64, output_channels=256,
+            upsample_blocks.append(Generator_Upsample_Block(input_channels=64, output_channels=64,
                                                             kernel_size=3, stride=1, padding=1))
         self.upsample_blocks = nn.Sequential(*upsample_blocks)
 
 
         ################# Output Layer ###############
-        self.conv3 = nn.Conv2d(in_channels = 256, out_channels = 3, 
+        self.conv3 = nn.Conv2d(in_channels = 64, out_channels = 3, 
                                kernel_size = 9, stride = 1, padding = 4)
         
     def forward(self, x):
@@ -63,8 +63,7 @@ class Discriminator(nn.Module):
         self.activation1 = nn.LeakyReLU(0.2)
 
         ################# Part 2 of Network ###############
-        self.downsample_blocks = []
-        self.downsample_blocks.append(
+        self.downsample_blocks = [
             Discriminator_Block(input_channels=64, output_channels=64,
                                 kernel_size=3, stride=2, padding=1), 
             Discriminator_Block(input_channels=64, output_channels=128,
@@ -78,7 +77,7 @@ class Discriminator(nn.Module):
             Discriminator_Block(input_channels=256, output_channels=512,
                                 kernel_size=3, stride=1, padding=1),
             Discriminator_Block(input_channels=512, output_channels=512,
-                                kernel_size=3, stride=2, padding=1))
+                                kernel_size=3, stride=2, padding=1)]
         
         self.downsample_layer = nn.Sequential(*self.downsample_blocks)
         
