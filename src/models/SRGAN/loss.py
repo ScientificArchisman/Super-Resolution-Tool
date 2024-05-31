@@ -17,6 +17,9 @@ class VGGLoss(nn.Module):
     
 
 class GeneratoradversarialLoss(nn.Module):
+    """Generator adversarial loss function.
+    Args:
+        fake_preds (torch.Tensor): Fake image predictions from the discriminator."""
     def __init__(self):
         super(GeneratoradversarialLoss, self).__init__()
         self.criterion = nn.BCELoss()
@@ -27,6 +30,10 @@ class GeneratoradversarialLoss(nn.Module):
 
 
 class DiscriminatorLoss(nn.Module):
+    """Discriminator loss function.
+    Args:
+        real_preds (torch.Tensor): Real image predictions from the discriminator.
+        fake_preds (torch.Tensor): Fake image predictions from the discriminator."""
     def __init__(self):
         super(DiscriminatorLoss, self).__init__()
         self.criterion = nn.BCELoss()
