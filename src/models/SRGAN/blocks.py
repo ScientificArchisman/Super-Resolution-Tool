@@ -26,12 +26,12 @@ class Generator_Residual_Block(nn.Module):
         return out
     
 
-class Discriminator_Residual_Block(nn.Module):
-    """ Discriminator Residual Block
+class Discriminator_Block(nn.Module):
+    """ Discriminator  Block
     Conv -> BN -> LeakyReLU"""
     def __init__(self, input_channels, output_channels,
                  kernel_size, stride, padding):
-        super(DisCriminator_Residual_Block, self).__init__()
+        super(Discriminator_Block, self).__init__()
         self.conv = nn.Conv2d(input_channels, output_channels, 
                           kernel_size, stride, padding)
         self.activation = nn.LeakyReLU(0.2)

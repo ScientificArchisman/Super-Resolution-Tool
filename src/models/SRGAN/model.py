@@ -1,4 +1,4 @@
-from blocks import Generator_Residual_Block, Discriminator_Residual_Block, Generator_Upsample_Block
+from blocks import Generator_Residual_Block, Discriminator_Block, Generator_Upsample_Block
 import torch.nn as nn
 
 
@@ -49,4 +49,52 @@ class Generator(nn.Module):
 
         out = self.upsample_blocks(out)
         out = self.conv3(out)
+        return out
+    
+
+class Discriminator(nn.Module):
+    """ Discriminator network for SRGAN """
+    def __init__(self, input_channels):
+        super(Discriminator, self).__init__()
+
+        ################# Part 1 of Network ###############
+        self.conv1 = nn.Conv2d(in_channels = input_channels,
+                                 out_channels = 64, kernel_size = 3, stride = 1, padding = 1)
+        self.activation1 = nn.LeakyReLU(0.2)
+
+        ################# Part 2 of Network ###############
+        self.downsample_blocks = []
+        self.downsample_blocks.append(
+            Discriminator_Block(input_channels=64, output_channels=64,
+                                kernel_size=3, stride=2, padding=1), 
+            Discriminator_Block(input_channels=64, output_channels=128,
+                                kernel_size=3, stride=1, padding=1),
+            Discriminator_Block(input_channels=128, output_channels=128,
+                                kernel_size=3, stride=2, padding=1),
+            Discriminator_Block(input_channels=128, output_channels=256,
+                                kernel_size=3, stride=1, padding=1),
+            Discriminator_Block(input_channels=256, output_channels=256,
+                                kernel_size=3, stride=2, padding=1),
+            Discriminator_Block(input_channels=256, output_channels=512,
+                                kernel_size=3, stride=1, padding=1),
+            Discriminator_Block(input_channels=512, output_channels=512,
+                                kernel_size=3, stride=2, padding=1))
+        
+        self.downsample_layer = nn.Sequential(*self.downsample_blocks)
+        
+        ################# Part 3 of Network ###############
+        self.linear1 = nn.Linear(512*16*16, 1024)
+        self.activation2 = nn.LeakyReLU(0.2)
+        self.linear2 = nn.Linear(1024, 1)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        out = self.conv1(x)
+        out = self.activation1(out)
+        out = self.downsample_layer(out)
+        out = out.view(out.size(0), -1)
+        out = self.linear1(out)
+        out = self.activation2(out)
+        out = self.linear2(out)
+        out = self.sigmoid(out)
         return out
