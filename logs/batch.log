@@ -1,0 +1,14 @@
+Model: SRGAN
+Configuration:
+Generator Input Channels: 3
+Generator Output Channels: 3
+Num Upsample Blocks: 2
+Num Residual Blocks: 16
+Discriminator Input Channels: 3
+Learning Rate: 0.0001
+Batch Size: 16
+Number of Epochs: 100
+--------------------------------------------------
+Epoch: , Batch: , Generator Loss: , Discriminator Loss: , Content Loss: , Adversarial Loss: 
+2024-06-01 15:38:30,805 - 1, 1, 6.7621, 0.7289, 6.7524, 1.6062
+2024-06-01 15:38:45,783 - 1, 2, 4.9998, 0.5329, 4.9893, 1.7539
