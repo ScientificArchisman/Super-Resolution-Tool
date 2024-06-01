@@ -100,3 +100,15 @@ def train(n_epochs = config.N_EPOCHS):
         print(f"[Epoch {epoch+1}/{n_epochs}] "
             f"Train Loss G: {avg_train_loss_G:.4f}, D: {avg_train_loss_D:.4f} | "
             f"Val Loss G: {avg_val_loss_G:.4f}, D: {avg_val_loss_D:.4f}")
+        
+        # Save the model
+        torch.save(generator.state_dict(), config.GENERATOR_PATH)
+        torch.save(discriminator.state_dict(), config.DISCRIMINATOR_PATH)
+
+
+        
+
+
+
+if __name__ == "__main__":
+    train()

@@ -4,8 +4,9 @@ import torch.nn as nn
 class Generator_Residual_Block(nn.Module):
     """ Generator Residual Block 
     Conv -> BN -> PReLU -> Conv -> BN -> Add"""
-    def __init__(self, input_channels, output_channels, 
-                 kernel_size, stride, padding):
+    def __init__(self, input_channels = 64, 
+                 output_channels = 64, 
+                 kernel_size = 3, stride = 1, padding = 1):
         super(Generator_Residual_Block, self).__init__()
         self.conv1 = nn.Conv2d(input_channels, output_channels, 
                           kernel_size, stride, padding)
@@ -46,20 +47,18 @@ class Discriminator_Block(nn.Module):
     
 
 
-class Generator_Upsample_Block(nn.Module):
-    """Generator upsample block
-    Conv -> PixelShuffle -> PReLU"""
-    def __init__(self, input_channels, output_channels, 
-                 kernel_size, stride, padding, upsample_factor = 2):
-        super(Generator_Upsample_Block, self).__init__()
-        self.conv = nn.Conv2d(input_channels, output_channels * (upsample_factor ** 2), 
-                          kernel_size, stride, padding)
-        self.pixel_shuffle = nn.PixelShuffle(upsample_factor)
-        self.activation = nn.PReLU(output_channels)
+class UpsampleBlock(nn.Module):
+    """ Upsample block using PixelShuffle
+    Conv -> PixelShuffle -> PReLU """
+    def __init__(self, in_channels, up_factor=2):
+        super(UpsampleBlock, self).__init__()
+        self.conv = nn.Conv2d(in_channels, in_channels * up_factor ** 2, kernel_size=3, 
+                              stride=1, padding=1)
+        self.pixel_shuffle = nn.PixelShuffle(up_factor)
+        self.prelu = nn.PReLU()
 
     def forward(self, x):
-        output = self.conv(x)
-        output = self.pixel_shuffle(output)
-        output = self.activation(output)
-
-        return output
+        x = self.conv(x)
+        x = self.pixel_shuffle(x)
+        x = self.prelu(x)
+        return x
