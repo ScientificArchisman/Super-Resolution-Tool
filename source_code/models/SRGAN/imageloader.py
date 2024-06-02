@@ -4,7 +4,7 @@ import torch
 torch.set_num_threads(1)
 from torch.utils.data import Dataset, DataLoader, random_split
 from torchvision import transforms
-import config
+from source_code.models.SRGAN import config
 
 
 class PreprocessedDataset(Dataset):

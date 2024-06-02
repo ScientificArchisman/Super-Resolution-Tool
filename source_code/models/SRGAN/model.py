@@ -1,4 +1,4 @@
-from blocks import Generator_Residual_Block, Discriminator_Block, UpsampleBlock
+from source_code.models.SRGAN.blocks import Generator_Residual_Block, Discriminator_Block, UpsampleBlock
 import torch.nn as nn
 
 
