@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+:root {
+  --primary-light: #8abdff;
+  --primary: #6d5dfc;
+  --primary-dark: #5b0eeb;
+  
+  --white: #FFFFFF;
+  --greyLight-1: #E4EBF5;
+  --greyLight-2: #c8d0e7;
+  --greyLight-3: #bec8e4;
+  --greyDark: #9baacf;
+  --background-day: #f0f6bc;
+  --background-night: #2c3e50;
+  --text-color-day: #333;
+  --text-color-night: #ecf0f1;
+  --toggle-background: #4b3b7f;
+  --toggle-border: #cf9a2a;
+  --toggle-circle: #6e92ae;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px, 100% = 16px */
+  overflow-y: scroll;
+  background: var(--greyLight-1);
+  
+  @media screen and (min-width: 900px) {
+    font-size: 75%;
+  }
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-day);
+  color: var(--text-color-day);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.night-mode {
+  background-color: var(--background-night);
+  color: var(--text-color-night);
+}
+
+.container {
+  max-width: 800px;
+  max-height: 800px;
+  margin: 200px auto;
+  padding: 10px;
+  background-color: #f5f4f6;
+  border-radius: 50px;
+  box-shadow: 10px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+body.night-mode .container {
+  background-color: #34495e;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.model-selection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.switch {
+  position: fixed;
+  top: 20px;
+  right: 40px; /* Adjust this value to move the button to the left */
+  z-index: 1000;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch-label {
+  width: 60px;
+  height: 30px;
+  background-color: var(--toggle-background);
+  border-radius: 15px;
+  border: 2px solid var(--toggle-border);
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.switch-label::after {
+  content: '';
+  width: 25px;
+  height: 25px;
+  background-color: var(--toggle-circle);
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  transition: transform 0.3s ease;
+}
+
+.switch-label::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: url('/static/images/stars.png') no-repeat center center; 
+  background-size: cover;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+input:checked + .switch-label {
+  background-color: var(--primary);
+  border-color: var(--primary-dark); /* Change border color when checked */
+}
+
+input:checked + .switch-label::after {
+  transform: translateX(30px);
+}
+
+input:checked + .switch-label::before {
+  opacity: 1;
+}
+
+main {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.upload-section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input-wrapper input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.6rem;
+  color: var(--greyDark);
+  background-color: var(--white);
+  border-radius: 1rem;
+  box-shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: inset .2rem .2rem 1rem var(--primary-light), inset -.2rem -.2rem 1rem var(--primary-dark);
+}
+
+.radio {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.radio input {
+  display: none;
+}
+
+.radio__1, .radio__2, .radio__3 {
+  label {
+    box-shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 8rem;
+    height: 3.2rem;
+    border-radius: 1.6rem;
+    transition: all 0.3s ease;
+  }
+  
+  input:checked + label {
+    box-shadow: inset .2rem .2rem .5rem var(--greyLight-2), inset -.2rem -.2rem .5rem var(--white);
+    background: linear-gradient(330deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    color: var(--white);
+  }
+}
+
+button, .btn__primary {
+  width: 15rem;
+  height: 4rem;
+  border-radius: 1rem;
+  box-shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .3s ease;
+  background: var(--primary);
+  box-shadow: inset .2rem .2rem 1rem var(--primary-light), inset -.2rem -.2rem 1rem var(--primary-dark), .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
+  color: var(--greyLight-1);
+
+  &:hover {
+    color: var(--white);
+  }
+
+  &:active {
+    box-shadow: inset .2rem .2rem 1rem var(--primary-dark), inset -.2rem -.2rem 1rem var(--primary-light);
+  }
+
+  p {
+    font-size: 1.6rem;
+  }
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+#uploaded-image {
+  display: none;
+  width: 200px;
+  height: auto;
+  margin-top: 20px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.control {
+  position: fixed;
+  top: 20px;
+  right: 40px; /* Adjust this value to move the button to the left */
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.stars {
+  display: none;
+}
+
+.star-twelve {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.star-1 { top: 20px; left: 20px; }
+.star-2 { top: 60px; left: 40px; }
+.star-3 { top: 100px; left: 80px; }
+.star-4 { top: 140px; left: 120px; }
+
+.on .stars {
+  display: block;
+}
