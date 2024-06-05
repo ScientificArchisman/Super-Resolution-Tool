@@ -16,20 +16,27 @@ function previewImage(event) {
 function submitForm() {
     const model = document.querySelector('input[name="model"]:checked').value;
     const input = document.getElementById('upload-image');
+    const width = document.getElementById('width').value;
+    const height = document.getElementById('height').value;
 
     if (input.files.length > 0) {
         const formData = new FormData();
         formData.append('image', input.files[0]);
         formData.append('model', model);
+        formData.append('width', width);
+        formData.append('height', height);
 
         fetch('/predict', {
             method: 'POST',
             body: formData
-        }).then(response => response.json())
-          .then(data => {
-              document.getElementById('result').innerText = `Prediction: ${data.prediction}`;
-          })
-          .catch(error => console.error('Error:', error));
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultImage = document.getElementById('result-image');
+            resultImage.src = `data:image/png;base64,${data.image}`;
+            resultImage.style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
     } else {
         alert('Please upload an image.');
     }

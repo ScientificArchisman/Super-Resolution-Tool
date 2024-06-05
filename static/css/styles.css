@@ -29,10 +29,6 @@ html {
   font-size: 62.5%; /* 1rem = 10px, 100% = 16px */
   overflow-y: scroll;
   background: var(--greyLight-1);
-  
-  @media screen and (min-width: 900px) {
-    font-size: 75%;
-  }
 }
 
 body {
@@ -42,6 +38,10 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100vh; /* Fill the screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.night-mode {
@@ -51,11 +51,11 @@ body.night-mode {
 
 .container {
   max-width: 800px;
-  max-height: 800px;
-  margin: 200px auto;
-  padding: 10px;
+  width: 100%; /* Full width */
+  margin: 20px; /* Gaps between elements */
+  padding: 20px;
   background-color: #f5f4f6;
-  border-radius: 50px;
+  border-radius: 20px; /* Increased border-radius for better appearance */
   box-shadow: 10px 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
 }
@@ -69,20 +69,22 @@ header {
 }
 
 h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 2.4em;
+  margin-bottom: 30px;
 }
 
 .model-selection {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 30px; 
 }
+
 
 .switch {
   position: fixed;
   top: 20px;
-  right: 40px; /* Adjust this value to move the button to the left */
+  right: 40px;
   z-index: 1000;
 }
 
@@ -127,7 +129,7 @@ h1 {
 
 input:checked + .switch-label {
   background-color: var(--primary);
-  border-color: var(--primary-dark); /* Change border color when checked */
+  border-color: var(--primary-dark);
 }
 
 input:checked + .switch-label::after {
@@ -144,17 +146,20 @@ main {
 }
 
 .upload-section {
+  margin-top: 30px; 
   margin-bottom: 20px;
 }
 
+
 h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
 .file-input-wrapper {
   position: relative;
   display: inline-block;
+  margin-bottom: 20px; /* Add margin for spacing */
 }
 
 .file-input-wrapper input[type="file"] {
@@ -219,7 +224,6 @@ button, .btn__primary {
   height: 4rem;
   border-radius: 1rem;
   box-shadow: .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
-  justify-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,19 +232,29 @@ button, .btn__primary {
   background: var(--primary);
   box-shadow: inset .2rem .2rem 1rem var(--primary-light), inset -.2rem -.2rem 1rem var(--primary-dark), .3rem .3rem .6rem var(--greyLight-2), -.2rem -.2rem .5rem var(--white);
   color: var(--greyLight-1);
-
-  &:hover {
-    color: var(--white);
-  }
-
-  &:active {
-    box-shadow: inset .2rem .2rem 1rem var(--primary-dark), inset -.2rem -.2rem 1rem var(--primary-light);
-  }
-
-  p {
-    font-size: 1.6rem;
-  }
+  margin: 0 auto; 
+  text-align: center; 
 }
+
+button:hover, .btn__primary:hover {
+  color: var(--white);
+}
+
+button:active, .btn__primary:active {
+  box-shadow: inset .2rem .2rem 1rem var(--primary-dark), inset -.2rem -.2rem 1rem var(--primary-light);
+}
+
+button p, .btn__primary p {
+  font-size: 1.6rem;
+  margin: 0; 
+}
+
+.upload-section {
+  text-align: center; 
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
 
 #result {
   margin-top: 20px;
@@ -250,6 +264,16 @@ button, .btn__primary {
 #uploaded-image {
   display: none;
   width: 200px;
+  height: auto;
+  margin-top: 20px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#result-image {
+  display: none;
+  width: 100%; /* Ensure the image fits within the container */
   height: auto;
   margin-top: 20px;
   border: 2px solid #ddd;
@@ -269,7 +293,7 @@ button, .btn__primary {
 .control {
   position: fixed;
   top: 20px;
-  right: 40px; /* Adjust this value to move the button to the left */
+  right: 40px;
   z-index: 1000;
   pointer-events: auto;
 }
@@ -293,4 +317,24 @@ button, .btn__primary {
 
 .on .stars {
   display: block;
+}
+
+.input-shape {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-shape label {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+.input-shape input {
+  width: 60px;
+  padding: 5px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid var(--greyDark);
 }
