@@ -9,6 +9,7 @@ import source_code.models.ESRGAN.config_ESR as config
 from PIL import Image
 import io
 import cv2
+import base64
 
 
 

@@ -42,10 +42,40 @@ function submitForm() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleSwitch = document.getElementById('switch-1');
-    toggleSwitch.addEventListener('change', function () {
-        document.getElementById("background").classList.toggle("on");
-        document.body.classList.toggle('night-mode');
+document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+    const body = document.body;
+  
+    darkModeToggle.addEventListener("change", function () {
+      body.classList.toggle("night-mode");
     });
-});
+  });
+  
+  function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.getElementById("uploaded-image");
+      output.src = reader.result;
+      output.style.display = "block";
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+  
+  function submitForm() {
+    const form = document.getElementById("upload-form");
+    const formData = new FormData(form);
+    const resultImage = document.getElementById("result-image");
+  
+    fetch("/upload", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        resultImage.src = url;
+        resultImage.style.display = "block";
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
